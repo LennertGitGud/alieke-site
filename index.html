@@ -1,9 +1,284 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="nl">
 <head>
-    <title>Alieke</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gelukkige verjaardag Alieke!</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #fff1f5,
+                #ffe4ec,
+                #f3e8ff,
+                #e0f2fe
+            );
+        }
+
+        .message {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 30px;
+            animation: appear 1.2s ease-out;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2.5rem, 8vw, 7rem);
+            line-height: 1.05;
+            color: #d63384;
+            text-shadow:
+                0 3px 0 white,
+                0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .small {
+            margin-top: 20px;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: #6f42c1;
+        }
+
+        @keyframes appear {
+            0% {
+                transform: scale(0.4) rotate(-5deg);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.08) rotate(2deg);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* BALLOONS */
+
+        .balloon {
+            position: fixed;
+            bottom: -180px;
+            width: 75px;
+            height: 95px;
+            border-radius: 50%;
+            z-index: 2;
+
+            animation: floatUp linear infinite;
+
+            box-shadow:
+                inset -10px -10px 15px rgba(0,0,0,0.12),
+                inset 10px 10px 15px rgba(255,255,255,0.25);
+        }
+
+        .balloon::before {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 31px;
+
+            width: 0;
+            height: 0;
+
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 12px solid currentColor;
+        }
+
+        .balloon::after {
+            content: "";
+            position: absolute;
+            top: 103px;
+            left: 37px;
+
+            width: 2px;
+            height: 110px;
+
+            background: rgba(80,80,80,0.35);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateY(-60vh) rotate(6deg);
+            }
+
+            100% {
+                transform: translateY(-130vh) rotate(-5deg);
+            }
+        }
+
+        /* CONFETTI */
+
+        .confetti {
+            position: fixed;
+            top: -20px;
+            z-index: 20;
+
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform:
+                    translateY(-20px)
+                    rotate(0deg);
+            }
+
+            100% {
+                transform:
+                    translateY(110vh)
+                    rotate(900deg);
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Hello world</h1>
+
+    <div class="message">
+        <h1>Hey Alieke,<br>gelukkige verjaardag!! 🎉</h1>
+        <div class="small">🥳 🎂 🎈</div>
+    </div>
+
+
+    <script>
+        /* -----------------------
+           BALLOONS
+        ----------------------- */
+
+        const balloonColors = [
+            "#ff4d6d",
+            "#ff9f1c",
+            "#ffd60a",
+            "#2ec4b6",
+            "#4dabf7",
+            "#9b5de5",
+            "#f15bb5"
+        ];
+
+        function createBalloon() {
+
+            const balloon = document.createElement("div");
+
+            balloon.className = "balloon";
+
+            const color =
+                balloonColors[
+                    Math.floor(Math.random() * balloonColors.length)
+                ];
+
+            balloon.style.background = color;
+            balloon.style.color = color;
+
+            balloon.style.left =
+                Math.random() * 95 + "vw";
+
+            balloon.style.animationDuration =
+                (7 + Math.random() * 6) + "s";
+
+            balloon.style.animationDelay =
+                (-Math.random() * 10) + "s";
+
+            const scale =
+                0.7 + Math.random() * 0.7;
+
+            balloon.style.width =
+                75 * scale + "px";
+
+            balloon.style.height =
+                95 * scale + "px";
+
+            document.body.appendChild(balloon);
+        }
+
+        for (let i = 0; i < 18; i++) {
+            createBalloon();
+        }
+
+
+        /* -----------------------
+           CONFETTI
+        ----------------------- */
+
+        const confettiColors = [
+            "#ff4d6d",
+            "#ffd60a",
+            "#00b4d8",
+            "#9b5de5",
+            "#2ec4b6",
+            "#ff8500",
+            "#f15bb5"
+        ];
+
+        function createConfetti() {
+
+            const piece =
+                document.createElement("div");
+
+            piece.className = "confetti";
+
+            piece.style.left =
+                Math.random() * 100 + "vw";
+
+            piece.style.width =
+                (6 + Math.random() * 8) + "px";
+
+            piece.style.height =
+                (10 + Math.random() * 15) + "px";
+
+            piece.style.background =
+                confettiColors[
+                    Math.floor(
+                        Math.random() *
+                        confettiColors.length
+                    )
+                ];
+
+            piece.style.animationDuration =
+                (3 + Math.random() * 4) + "s";
+
+            piece.style.opacity =
+                0.6 + Math.random() * 0.4;
+
+            document.body.appendChild(piece);
+
+            setTimeout(() => {
+                piece.remove();
+            }, 7000);
+        }
+
+        /* Initial explosion */
+        for (let i = 0; i < 150; i++) {
+
+            setTimeout(
+                createConfetti,
+                Math.random() * 1500
+            );
+        }
+
+        /* Keep some confetti falling */
+        setInterval(createConfetti, 100);
+
+    </script>
+
 </body>
 </html>
